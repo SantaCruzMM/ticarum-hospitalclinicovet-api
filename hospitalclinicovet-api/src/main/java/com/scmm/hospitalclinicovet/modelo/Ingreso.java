@@ -24,7 +24,7 @@ public class Ingreso {
 	@Column(name = "alta", nullable = false)
 	private LocalDate alta;
 	
-	@Column(name = "fin", nullable = false)
+	@Column(name = "fin")
 	private LocalDate fin;
 	
 	@Column(name = "estado", nullable = false)
@@ -39,8 +39,9 @@ public class Ingreso {
 	@Column(name = "dniRegistroIngreso", nullable = false)
 	private String dniRegistroIngreso;
 
+	// Al crear un nuevo ingreso se establece el valor de su estado como "ALTA"
 	public Ingreso() {
-		
+		estado = EstadoIngreso.ALTA;
 	}
 
 	public Ingreso(Long id, LocalDate alta, LocalDate fin, EstadoIngreso estado, Mascota mascota,
