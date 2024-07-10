@@ -42,6 +42,14 @@ public class IngresoService implements IIngresoService {
 			throw new InputException("No se puede ingresar a la mascota con id \"" + idMascota + "\" porque está dada de baja");
 		}
 		
+		List<Ingreso> ingresosMascota = ingresoRepository.findByMascota(idMascota);
+		
+		for (Ingreso ing: ingresosMascota) {
+			if (ing.getEstado().equals(EstadoIngreso.ALTA) || ing.getEstado().equals(EstadoIngreso.HOSPITALIZACION)) {
+				throw new InputException("No se puede ingresar a la mascota con id \"" + idMascota + "\" porque ya tiene un ingreso activo");
+			}
+		}
+		
 		if (dniResponsable.compareTo(mascota.getDniResponsable()) != 0) {
 			throw new InputException("El campo \"dniResponsable\" no coincide con el dni del responsable de la mascota");
 		}
@@ -61,7 +69,8 @@ public class IngresoService implements IIngresoService {
 
 	@Override
 	public void updateIngreso(Long idMascota, Long idIngreso, String estadoIngreso, LocalDate finIngreso) {
-		Ingreso ingreso = ingresoRepository.findByIdAndMascota(idIngreso, idMascota).orElseThrow(() -> new IngresoNotFoundException(idIngreso));
+		Ingreso ingreso = ingresoRepository.findByIdAndMascota(idIngreso, idMascota).orElseThrow(() -> new IngresoNotFoundException("No se ha encontrado el ingreso con ID \"" +
+																													idIngreso + "\" e ID mascota \"" + idMascota + "\""));
 		
 		// Validación de estado
 		validateEstadoIngreso(ingreso);
@@ -95,7 +104,7 @@ public class IngresoService implements IIngresoService {
 	}
 
 	@Override
-	public Ingreso anulaIngreso(Long idIngreso) {
+	public void anulaIngreso(Long idIngreso) {
 		Ingreso ingreso = ingresoRepository.findById(idIngreso).orElseThrow(() -> new IngresoNotFoundException(idIngreso));
 		
 		// Validación de estado
@@ -104,8 +113,6 @@ public class IngresoService implements IIngresoService {
 		ingreso.setEstado(EstadoIngreso.ANULADO);
 		
 		ingresoRepository.save(ingreso);
-		
-		return ingreso;
 	}
 	
 	//Aux

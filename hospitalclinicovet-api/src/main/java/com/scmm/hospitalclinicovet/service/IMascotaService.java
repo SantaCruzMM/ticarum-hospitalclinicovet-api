@@ -13,5 +13,5 @@ public interface IMascotaService {
 	
 	Mascota createMascota(String especie, String raza, Integer edad, String codIdentif, String dniResponsable);
 	
-	Mascota bajaMascota(Long idMascota);
+	void bajaMascota(Long idMascota);
 }

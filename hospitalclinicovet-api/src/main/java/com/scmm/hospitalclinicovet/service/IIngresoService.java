@@ -13,5 +13,5 @@ public interface IIngresoService {
 	
 	void updateIngreso(Long idMascota, Long idIngreso, String estadoIngreso, LocalDate finIngreso);
 	
-	Ingreso anulaIngreso(Long idIngreso);
+	void anulaIngreso(Long idIngreso);
 }

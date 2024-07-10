@@ -59,7 +59,7 @@ public class MascotaService  implements IMascotaService {
 	}
 
 	@Override
-	public Mascota bajaMascota(Long idMascota) {
+	public void bajaMascota(Long idMascota) {
 		Mascota mascota = mascotaRepository.findById(idMascota).orElseThrow(() -> new MascotaNotFoundException(idMascota));
 		
 		if (!mascota.isActiva()) {
@@ -79,8 +79,6 @@ public class MascotaService  implements IMascotaService {
 				ingresoRepository.save(ing);
 			}
 		}
-		
-		return mascota;
 	}
 	
 	// Aux
