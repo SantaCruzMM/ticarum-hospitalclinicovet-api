@@ -14,6 +14,7 @@ public class MascotaMapper {
 		mascotaDto.setEdad(mascota.getEdad());
 		mascotaDto.setCodIdentif(mascota.getCodIdentif());
 		mascotaDto.setDniResponsable(mascota.getDniResponsable());
+		mascotaDto.setActiva(mascota.isActiva());
 		
 		return mascotaDto;
 	}
@@ -27,8 +28,7 @@ public class MascotaMapper {
 		mascota.setEdad(mascotaDto.getEdad());
 		mascota.setCodIdentif(mascotaDto.getCodIdentif());
 		mascota.setDniResponsable(mascotaDto.getDniResponsable());
-		// Se asigna "true" como valor por defecto para el atributo "activa"
-		mascota.setActiva(true);
+		mascota.setActiva(mascotaDto.isActiva());
 		
 		return mascota;
 	}

@@ -38,6 +38,10 @@ public class IngresoService implements IIngresoService {
 	public Ingreso createIngreso(Long idMascota, String dniResponsable, LocalDate fechaIngreso) {
 		Mascota mascota = mascotaRepository.findById(idMascota).orElseThrow(() -> new MascotaNotFoundException(idMascota));
 		
+		if (!mascota.isActiva()) {
+			throw new InputException("No se puede ingresar a la mascota con id \"" + idMascota + "\" porque está dada de baja");
+		}
+		
 		if (dniResponsable.compareTo(mascota.getDniResponsable()) != 0) {
 			throw new InputException("El campo \"dniResponsable\" no coincide con el dni del responsable de la mascota");
 		}
@@ -62,6 +66,8 @@ public class IngresoService implements IIngresoService {
 		// Validación de estado
 		if (ingreso.getEstado().equals(EstadoIngreso.ANULADO)) {
 			throw new InputException("No se puede modificar un ingreso con estado \"anulado\"");
+		} else if (ingreso.getEstado().equals(EstadoIngreso.FINALIZADO)) {
+			throw new InputException("No se puede modificar un ingreso con estado \"finalizado\"");
 		}
 		
 		// Actualización

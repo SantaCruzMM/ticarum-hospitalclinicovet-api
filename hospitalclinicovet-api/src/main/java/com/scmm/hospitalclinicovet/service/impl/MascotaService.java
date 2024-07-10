@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.scmm.hospitalclinicovet.exception.InputException;
 import com.scmm.hospitalclinicovet.exception.MascotaNotFoundException;
+import com.scmm.hospitalclinicovet.modelo.EstadoIngreso;
 import com.scmm.hospitalclinicovet.modelo.Ingreso;
 import com.scmm.hospitalclinicovet.modelo.Mascota;
 import com.scmm.hospitalclinicovet.repository.IngresoRepository;
@@ -41,8 +42,17 @@ public class MascotaService  implements IMascotaService {
 	}
 
 	@Override
-	public Mascota createMascota(Mascota mascota) {
-		validateMascota(mascota);
+	public Mascota createMascota(String especie, String raza, Integer edad, String codIdentif, String dniResponsable) {
+		validateInputMascota(especie, raza, edad, codIdentif, dniResponsable);
+		
+		Mascota mascota = new Mascota();
+		mascota.setEspecie(especie);
+		mascota.setRaza(raza);
+		mascota.setEdad(edad);
+		mascota.setCodIdentif(codIdentif);
+		mascota.setDniResponsable(dniResponsable);
+		mascota.setActiva(true);
+		
 		Mascota mascotaSaved = mascotaRepository.save(mascota);
 		
 		return mascotaSaved;
@@ -52,32 +62,46 @@ public class MascotaService  implements IMascotaService {
 	public Mascota bajaMascota(Long idMascota) {
 		Mascota mascota = mascotaRepository.findById(idMascota).orElseThrow(() -> new MascotaNotFoundException(idMascota));
 		
+		if (!mascota.isActiva()) {
+			throw new InputException("No se puede volver a dar de baja a la mascota con id: " + idMascota);
+		}
+		
 		mascota.setActiva(false);
 		
 		mascotaRepository.save(mascota);
+		
+		// Si la mascota tiene algún ingreso activo se anulará
+		List<Ingreso> ingresosMascota = getIngresosMascota(idMascota);
+		
+		for (Ingreso ing: ingresosMascota) {
+			if (ing.getEstado().equals(EstadoIngreso.ALTA) || ing.getEstado().equals(EstadoIngreso.HOSPITALIZACION)) {
+				ing.setEstado(EstadoIngreso.ANULADO);
+				ingresoRepository.save(ing);
+			}
+		}
 		
 		return mascota;
 	}
 	
 	// Aux
-	private void validateMascota(Mascota mascota) {
-		if (mascota.getEspecie() == null || mascota.getEspecie().compareTo("") == 0) {
+	private void validateInputMascota(String especie, String raza, Integer edad, String codIdentif, String dniResponsable) {
+		if (especie == null || especie.compareTo("") == 0) {
 			throw new InputException("No se ha encontrado el campo \"especie\" para la mascota");
 		}
 		
-		if (mascota.getRaza() == null || mascota.getRaza().compareTo("") == 0) {
+		if (raza == null || raza.compareTo("") == 0) {
 			throw new InputException("No se ha encontrado el campo \"raza\" para la mascota");
 		}
 		
-		if (mascota.getEdad() == null || mascota.getEdad() < 0) {
+		if (edad == null || edad < 0) {
 			throw new InputException("No se ha encontrado el campo \"edad\" para la mascota o es menor que 0");
 		}
 		
-		if (mascota.getCodIdentif() == null || mascota.getCodIdentif().compareTo("") == 0) {
+		if (codIdentif == null || codIdentif.compareTo("") == 0) {
 			throw new InputException("No se ha encontrado el campo \"codIdentif\" para la mascota");
 		}
 		
-		if (mascota.getDniResponsable() == null || mascota.getDniResponsable().compareTo("") == 0) {
+		if (dniResponsable == null || dniResponsable.compareTo("") == 0) {
 			throw new InputException("No se ha encontrado el campo \"dniResponsable\" para la mascota");
 		}
 	}

@@ -7,18 +7,20 @@ public class MascotaDTO {
 	private Integer edad;
 	private String codIdentif;
 	private String dniResponsable;
+	private boolean activa;
 	
 	public MascotaDTO() {
 		
 	}
 	
-	public MascotaDTO(Long id, String especie, String raza, Integer edad, String codIdentif, String dniResponsable) {
+	public MascotaDTO(Long id, String especie, String raza, Integer edad, String codIdentif, String dniResponsable, boolean activa) {
 		this.id = id;
 		this.especie = especie;
 		this.raza = raza;
 		this.edad = edad;
 		this.codIdentif = codIdentif;
 		this.dniResponsable = dniResponsable;
+		this.activa = activa;
 	}
 	
 	public Long getId() {
@@ -56,5 +58,13 @@ public class MascotaDTO {
 	}
 	public void setDniResponsable(String dniResponsable) {
 		this.dniResponsable = dniResponsable;
+	}
+
+	public boolean isActiva() {
+		return activa;
+	}
+
+	public void setActiva(boolean activa) {
+		this.activa = activa;
 	}
 }
