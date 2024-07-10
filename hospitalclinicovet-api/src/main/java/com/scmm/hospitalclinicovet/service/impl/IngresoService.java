@@ -64,11 +64,7 @@ public class IngresoService implements IIngresoService {
 		Ingreso ingreso = ingresoRepository.findByIdAndMascota(idIngreso, idMascota).orElseThrow(() -> new IngresoNotFoundException(idIngreso));
 		
 		// Validación de estado
-		if (ingreso.getEstado().equals(EstadoIngreso.ANULADO)) {
-			throw new InputException("No se puede modificar un ingreso con estado \"anulado\"");
-		} else if (ingreso.getEstado().equals(EstadoIngreso.FINALIZADO)) {
-			throw new InputException("No se puede modificar un ingreso con estado \"finalizado\"");
-		}
+		validateEstadoIngreso(ingreso);
 		
 		// Actualización
 		if (estadoIngreso != null && finIngreso != null) {
@@ -102,10 +98,22 @@ public class IngresoService implements IIngresoService {
 	public Ingreso anulaIngreso(Long idIngreso) {
 		Ingreso ingreso = ingresoRepository.findById(idIngreso).orElseThrow(() -> new IngresoNotFoundException(idIngreso));
 		
+		// Validación de estado
+		validateEstadoIngreso(ingreso);
+		
 		ingreso.setEstado(EstadoIngreso.ANULADO);
 		
 		ingresoRepository.save(ingreso);
 		
 		return ingreso;
+	}
+	
+	//Aux
+	private void validateEstadoIngreso(Ingreso ingreso) {
+		if (ingreso.getEstado().equals(EstadoIngreso.ANULADO)) {
+			throw new InputException("No se puede modificar un ingreso con estado \"anulado\"");
+		} else if (ingreso.getEstado().equals(EstadoIngreso.FINALIZADO)) {
+			throw new InputException("No se puede modificar un ingreso con estado \"finalizado\"");
+		}
 	}
 }
