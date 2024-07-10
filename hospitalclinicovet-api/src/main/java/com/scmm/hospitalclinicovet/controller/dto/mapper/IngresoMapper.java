@@ -1,5 +1,8 @@
 package com.scmm.hospitalclinicovet.controller.dto.mapper;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.scmm.hospitalclinicovet.controller.dto.IngresoDTO;
 import com.scmm.hospitalclinicovet.modelo.EstadoIngreso;
 import com.scmm.hospitalclinicovet.modelo.Ingreso;
@@ -30,5 +33,9 @@ public class IngresoMapper {
 		ingreso.setDniRegistroIngreso(ingresoDto.getDniRegistroIngreso());
 		
 		return ingreso;
+	}
+	
+	public static List<IngresoDTO> toListDto(List<Ingreso> ingresos) {
+		return ingresos.stream().map(IngresoMapper::toDto).collect(Collectors.toList());
 	}
 }

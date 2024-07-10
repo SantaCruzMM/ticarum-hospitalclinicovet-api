@@ -4,7 +4,7 @@ public class MascotaDTO {
 	private Long id;
 	private String especie;
 	private String raza;
-	private int edad;
+	private Integer edad;
 	private String codIdentif;
 	private String dniResponsable;
 	
@@ -12,7 +12,7 @@ public class MascotaDTO {
 		
 	}
 	
-	public MascotaDTO(Long id, String especie, String raza, int edad, String codIdentif, String dniResponsable) {
+	public MascotaDTO(Long id, String especie, String raza, Integer edad, String codIdentif, String dniResponsable) {
 		this.id = id;
 		this.especie = especie;
 		this.raza = raza;
@@ -39,10 +39,10 @@ public class MascotaDTO {
 	public void setRaza(String raza) {
 		this.raza = raza;
 	}
-	public int getEdad() {
+	public Integer getEdad() {
 		return edad;
 	}
-	public void setEdad(int edad) {
+	public void setEdad(Integer edad) {
 		this.edad = edad;
 	}
 	public String getCodIdentif() {

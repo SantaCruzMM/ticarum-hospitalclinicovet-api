@@ -1,6 +1,7 @@
 package com.scmm.hospitalclinicovet.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -18,5 +19,5 @@ public interface IngresoRepository extends CrudRepository<Ingreso, Long> {
 	
 	@Query(value = "SELECT * FROM INGRESO I WHERE i.id = ?1 AND i.FK_MASCOTA_ID = ?2",
 			nativeQuery = true)
-	Ingreso findByIdAndMascota(Long idIngreso, Long idMascota);
+	Optional<Ingreso> findByIdAndMascota(Long idIngreso, Long idMascota);
 }

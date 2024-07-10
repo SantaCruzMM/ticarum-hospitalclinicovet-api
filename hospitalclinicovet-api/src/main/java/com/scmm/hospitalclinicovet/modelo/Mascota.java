@@ -20,7 +20,7 @@ public class Mascota {
 	private String raza;
 	
 	@Column(name = "edad", nullable = false)
-	private int edad;
+	private Integer edad;
 	
 	@Column(name = "codIdentif", nullable = false)
 	private String codIdentif;
@@ -35,7 +35,7 @@ public class Mascota {
 		
 	}
 
-	public Mascota(Long id, String especie, String raza, int edad, String codIdentif, String dniResponsable, boolean activa) {
+	public Mascota(Long id, String especie, String raza, Integer edad, String codIdentif, String dniResponsable, boolean activa) {
 		this.id = id;
 		this.especie = especie;
 		this.raza = raza;
@@ -69,11 +69,11 @@ public class Mascota {
 		this.raza = raza;
 	}
 
-	public int getEdad() {
+	public Integer getEdad() {
 		return edad;
 	}
 
-	public void setEdad(int edad) {
+	public void setEdad(Integer edad) {
 		this.edad = edad;
 	}
 
