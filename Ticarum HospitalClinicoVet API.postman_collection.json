@@ -1,0 +1,210 @@
+{
+	"info": {
+		"_postman_id": "6efe124e-db1e-4bf9-a10f-14f7533355ba",
+		"name": "Ticarum HospitalClinicoVet API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "20798290"
+	},
+	"item": [
+		{
+			"name": "Mascota",
+			"item": [
+				{
+					"name": "getMascotaById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/mascota/:idMascota",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"mascota",
+								":idMascota"
+							],
+							"variable": [
+								{
+									"key": "idMascota",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getIngresosMascota",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/mascota/:idMascota/ingreso",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"mascota",
+								":idMascota",
+								"ingreso"
+							],
+							"variable": [
+								{
+									"key": "idMascota",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addMascota",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"especie\": \"Perro\",\n    \"raza\": \"Labrador\",\n    \"edad\": 4,\n    \"codIdentif\": \"985141000123456\",\n    \"dniResponsable\": \"39582395Q\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/mascota"
+					},
+					"response": []
+				},
+				{
+					"name": "bajaMascota",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/mascota/:idMascota",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"mascota",
+								":idMascota"
+							],
+							"variable": [
+								{
+									"key": "idMascota",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Ingreso",
+			"item": [
+				{
+					"name": "addIngreso",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"idMascota\": 1,\n    \"dniResponsable\": \"39582395Q\",\n    \"fechaIngreso\": \"2024-07-10\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/ingreso"
+					},
+					"response": []
+				},
+				{
+					"name": "getAllIngresos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/ingreso"
+					},
+					"response": []
+				},
+				{
+					"name": "updateIngreso",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"estado\": \"FINALIZADO\",\n    \"finIngreso\": \"2024-07-10\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/ingreso/:idMascota/:idIngreso",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ingreso",
+								":idMascota",
+								":idIngreso"
+							],
+							"variable": [
+								{
+									"key": "idMascota",
+									"value": "1"
+								},
+								{
+									"key": "idIngreso",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "anulaIngreso",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/ingreso/:idIngreso",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ingreso",
+								":idIngreso"
+							],
+							"variable": [
+								{
+									"key": "idIngreso",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
