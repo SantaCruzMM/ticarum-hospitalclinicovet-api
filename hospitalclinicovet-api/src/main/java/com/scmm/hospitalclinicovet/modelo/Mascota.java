@@ -22,10 +22,10 @@ public class Mascota {
 	@Column(name = "edad", nullable = false)
 	private Integer edad;
 	
-	@Column(name = "codIdentif", nullable = false)
+	@Column(name = "cod_identif", nullable = false)
 	private String codIdentif;
 	
-	@Column(name = "dniResponsable", nullable = false)
+	@Column(name = "dni_responsable", nullable = false)
 	private String dniResponsable;
 	
 	@Column(name = "activa", nullable = false)

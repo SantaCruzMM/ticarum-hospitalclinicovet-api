@@ -58,6 +58,17 @@ public class IngresoService implements IIngresoService {
 			throw new InputException("No se ha encontrado el campo \"fechaIngreso\" para el ingreso");
 		}
 		
+		LocalDate fechaActual = LocalDate.now();
+        LocalDate fechaNacimiento = fechaActual.minusYears(mascota.getEdad());
+        
+        if (fechaIngreso.isBefore(fechaNacimiento)) {
+        	throw new InputException("No se puede crear un ingreso con una fecha anterior a la fecha de nacimiento de la mascota");
+        }
+        
+        if (fechaIngreso.isAfter(fechaActual)) {
+        	throw new InputException("No se puede crear un ingreso con una fecha posterior a la fecha actual");
+        }
+		
 		// Se establece el valor de estado como "ALTA" por defecto
 		Ingreso ingreso = new Ingreso();
 		ingreso.setMascota(mascota);
@@ -78,6 +89,9 @@ public class IngresoService implements IIngresoService {
 		// Actualización
 		if (estadoIngreso != null && finIngreso != null) {
 			if (EstadoIngreso.FINALIZADO.toString().compareTo(estadoIngreso.toUpperCase()) == 0) {
+				if (ingreso.getAlta().isAfter(finIngreso)) {
+					throw new InputException("No se puede finalizar un ingreso con una fecha de fin anterior a la fecha de alta");
+				}
 				ingreso.setEstado(EstadoIngreso.FINALIZADO);
 				ingreso.setFin(finIngreso);
 			} else {
@@ -95,6 +109,9 @@ public class IngresoService implements IIngresoService {
 		        }
 			}
 		} else if (finIngreso != null) {
+			if (ingreso.getAlta().isAfter(finIngreso)) {
+				throw new InputException("No se puede finalizar un ingreso con una fecha de fin anterior a la fecha de alta");
+			}
 			// Se establece el estado "finalizado" para mantener la consistencia
 			ingreso.setEstado(EstadoIngreso.FINALIZADO);
 			ingreso.setFin(finIngreso);

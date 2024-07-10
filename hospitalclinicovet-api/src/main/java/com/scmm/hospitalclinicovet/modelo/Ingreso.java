@@ -36,7 +36,7 @@ public class Ingreso {
 	@JsonIgnore
 	private Mascota mascota;
 	
-	@Column(name = "dniRegistroIngreso", nullable = false)
+	@Column(name = "dni_registro_ingreso", nullable = false)
 	private String dniRegistroIngreso;
 
 	// Al crear un nuevo ingreso se establece el valor de su estado como "ALTA"
