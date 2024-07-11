@@ -84,23 +84,23 @@ public class MascotaService  implements IMascotaService {
 	// Aux
 	private void validateInputMascota(String especie, String raza, Integer edad, String codIdentif, String dniResponsable) {
 		if (especie == null || especie.compareTo("") == 0) {
-			throw new InputException("No se ha encontrado el campo \"especie\" para la mascota");
+			throw new InputException("No se ha encontrado el campo 'especie' para la mascota");
 		}
 		
 		if (raza == null || raza.compareTo("") == 0) {
-			throw new InputException("No se ha encontrado el campo \"raza\" para la mascota");
+			throw new InputException("No se ha encontrado el campo 'raza' para la mascota");
 		}
 		
 		if (edad == null || edad < 0) {
-			throw new InputException("No se ha encontrado el campo \"edad\" para la mascota o es menor que 0");
+			throw new InputException("No se ha encontrado el campo 'edad' para la mascota o es menor que 0");
 		}
 		
 		if (codIdentif == null || codIdentif.compareTo("") == 0) {
-			throw new InputException("No se ha encontrado el campo \"codIdentif\" para la mascota");
+			throw new InputException("No se ha encontrado el campo 'codIdentif' para la mascota");
 		}
 		
 		if (dniResponsable == null || dniResponsable.compareTo("") == 0) {
-			throw new InputException("No se ha encontrado el campo \"dniResponsable\" para la mascota");
+			throw new InputException("No se ha encontrado el campo 'dniResponsable' para la mascota");
 		}
 	}
 }

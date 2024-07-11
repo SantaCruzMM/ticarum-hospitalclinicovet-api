@@ -28,7 +28,7 @@
 							"variable": [
 								{
 									"key": "idMascota",
-									"value": "1"
+									"value": "5"
 								}
 							]
 						}
@@ -55,7 +55,7 @@
 							"variable": [
 								{
 									"key": "idMascota",
-									"value": "1"
+									"value": "5"
 								}
 							]
 						}
@@ -109,7 +109,7 @@
 							"variable": [
 								{
 									"key": "idMascota",
-									"value": "1"
+									"value": "5"
 								}
 							]
 						}
@@ -128,7 +128,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"idMascota\": 1,\n    \"dniResponsable\": \"39582395Q\",\n    \"fechaIngreso\": \"2024-07-10\"\n}",
+							"raw": "{\n    \"idMascota\": 5,\n    \"dniResponsable\": \"39582395Q\",\n    \"fechaIngreso\": \"2024-07-10\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -197,11 +197,11 @@
 							"variable": [
 								{
 									"key": "idMascota",
-									"value": "1"
+									"value": "5"
 								},
 								{
 									"key": "idIngreso",
-									"value": "1"
+									"value": "10"
 								}
 							]
 						}
@@ -227,7 +227,7 @@
 							"variable": [
 								{
 									"key": "idIngreso",
-									"value": "1"
+									"value": "10"
 								}
 							]
 						}

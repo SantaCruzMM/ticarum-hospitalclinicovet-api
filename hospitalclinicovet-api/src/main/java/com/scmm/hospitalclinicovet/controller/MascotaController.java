@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.scmm.hospitalclinicovet.controller.dto.ErrorResponse;
 import com.scmm.hospitalclinicovet.controller.dto.IngresoDTO;
 import com.scmm.hospitalclinicovet.controller.dto.MascotaDTO;
 import com.scmm.hospitalclinicovet.controller.dto.mapper.IngresoMapper;
@@ -23,6 +24,9 @@ import com.scmm.hospitalclinicovet.service.impl.MascotaService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -37,8 +41,12 @@ public class MascotaController {
 	
 	@Operation(summary = "Obtener una mascota por ID", description = "Devuelve una mascota según su ID")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "Mascota encontrada"),
-        @ApiResponse(responseCode = "404", description = "Mascota no encontrada")
+        @ApiResponse(responseCode = "200", description = "Mascota encontrada", 
+        		content = { @Content(mediaType = "application/json",
+        			schema = @Schema(implementation = MascotaDTO.class)) }),
+        @ApiResponse(responseCode = "404", description = "Mascota no encontrada",
+        		content = @Content(mediaType = "application/json",
+        			schema = @Schema(implementation = ErrorResponse.class)))
     })
 	@GetMapping(value = "/{idMascota}", produces = "application/json")
 	public ResponseEntity<MascotaDTO> getMascotaById(@Parameter(description = "ID de la mascota") @PathVariable Long idMascota) {
@@ -52,8 +60,12 @@ public class MascotaController {
 	
 	@Operation(summary = "Obtener una lista de ingresos de una mascota", description = "Devuelve los ingresos de una mascota según su ID")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "Listado de ingresos de una mascota recuperado"),
-        @ApiResponse(responseCode = "404", description = "Mascota no encontrada")
+        @ApiResponse(responseCode = "200", description = "Listado de ingresos de una mascota recuperado",
+        		content = { @Content(mediaType = "application/json",
+        			array = @ArraySchema(schema = @Schema(implementation = IngresoDTO.class))) }),
+        @ApiResponse(responseCode = "404", description = "Mascota no encontrada",
+        		content = @Content(mediaType = "application/json",
+        			schema = @Schema(implementation = ErrorResponse.class)))
     })
 	@GetMapping(value = "/{idMascota}/ingreso", produces = "application/json")
 	public ResponseEntity<List<IngresoDTO>> getIngresosMascota(@Parameter(description = "ID de la mascota") @PathVariable Long idMascota) {
@@ -68,8 +80,12 @@ public class MascotaController {
 	
 	@Operation(summary = "Crear una nueva mascota", description = "Crea una nueva mascota a partir de sus datos")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "201", description = "Mascota creada"),
-        @ApiResponse(responseCode = "400", description = "Datos para crear la mascota incorrectos o incompletos")
+        @ApiResponse(responseCode = "201", description = "Mascota creada",
+        		content = { @Content(mediaType = "application/json",
+        			schema = @Schema(implementation = MascotaDTO.class)) }),
+        @ApiResponse(responseCode = "400", description = "Datos para crear la mascota incorrectos o incompletos",
+        		content = @Content(mediaType = "application/json",
+        			schema = @Schema(implementation = ErrorResponse.class)))
     })
 	@PostMapping(consumes = "application/json", produces = "application/json")
 	public ResponseEntity<MascotaDTO> addMascota(@io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Datos de la nueva mascota")
@@ -86,9 +102,14 @@ public class MascotaController {
 	
 	@Operation(summary = "Dar de baja una mascota", description = "Da de baja una mascota según su ID")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "204", description = "Mascota dada de baja"),
-        @ApiResponse(responseCode = "400", description = "Mascota ya dada de baja"),
-        @ApiResponse(responseCode = "404", description = "Mascota no encontrada")
+        @ApiResponse(responseCode = "204", description = "Mascota dada de baja",
+        		content = @Content),
+        @ApiResponse(responseCode = "400", description = "Mascota ya dada de baja",
+        		content = @Content(mediaType = "application/json",
+        			schema = @Schema(implementation = ErrorResponse.class))),
+        @ApiResponse(responseCode = "404", description = "Mascota no encontrada",
+        		content = @Content(mediaType = "application/json",
+        			schema = @Schema(implementation = ErrorResponse.class)))
     })
 	@DeleteMapping(value = "/{idMascota}")
 	public ResponseEntity<Void> bajaMascota(@Parameter(description = "ID de la mascota") @PathVariable Long idMascota) {

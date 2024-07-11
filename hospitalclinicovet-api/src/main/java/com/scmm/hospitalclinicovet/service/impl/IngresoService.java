@@ -39,23 +39,23 @@ public class IngresoService implements IIngresoService {
 		Mascota mascota = mascotaRepository.findById(idMascota).orElseThrow(() -> new MascotaNotFoundException(idMascota));
 		
 		if (!mascota.isActiva()) {
-			throw new InputException("No se puede ingresar a la mascota con id \"" + idMascota + "\" porque está dada de baja");
+			throw new InputException("No se puede ingresar a la mascota con id '" + idMascota + "' porque está dada de baja");
 		}
 		
 		List<Ingreso> ingresosMascota = ingresoRepository.findByMascota(idMascota);
 		
 		for (Ingreso ing: ingresosMascota) {
 			if (ing.getEstado().equals(EstadoIngreso.ALTA) || ing.getEstado().equals(EstadoIngreso.HOSPITALIZACION)) {
-				throw new InputException("No se puede ingresar a la mascota con id \"" + idMascota + "\" porque ya tiene un ingreso activo");
+				throw new InputException("No se puede ingresar a la mascota con id '" + idMascota + "' porque ya tiene un ingreso activo");
 			}
 		}
 		
 		if (dniResponsable.compareTo(mascota.getDniResponsable()) != 0) {
-			throw new InputException("El campo \"dniResponsable\" no coincide con el dni del responsable de la mascota");
+			throw new InputException("El campo 'dniResponsable' no coincide con el dni del responsable de la mascota");
 		}
 		
 		if (fechaIngreso == null) {
-			throw new InputException("No se ha encontrado el campo \"fechaIngreso\" para el ingreso");
+			throw new InputException("No se ha encontrado el campo 'fechaIngreso' para el ingreso");
 		}
 		
 		LocalDate fechaActual = LocalDate.now();
@@ -80,8 +80,8 @@ public class IngresoService implements IIngresoService {
 
 	@Override
 	public void updateIngreso(Long idMascota, Long idIngreso, String estadoIngreso, LocalDate finIngreso) {
-		Ingreso ingreso = ingresoRepository.findByIdAndMascota(idIngreso, idMascota).orElseThrow(() -> new IngresoNotFoundException("No se ha encontrado el ingreso con ID \"" +
-																													idIngreso + "\" e ID mascota \"" + idMascota + "\""));
+		Ingreso ingreso = ingresoRepository.findByIdAndMascota(idIngreso, idMascota).orElseThrow(() -> new IngresoNotFoundException("No se ha encontrado el ingreso con ID '" +
+																													idIngreso + "' e ID mascota '" + idMascota + "'"));
 		
 		// Validación de estado
 		validateEstadoIngreso(ingreso);
@@ -95,17 +95,17 @@ public class IngresoService implements IIngresoService {
 				ingreso.setEstado(EstadoIngreso.FINALIZADO);
 				ingreso.setFin(finIngreso);
 			} else {
-				throw new InputException("No se puede establecer un estado distinto de \"finalizado\" con una fecha de fin de ingreso");
+				throw new InputException("No se puede establecer un estado distinto de 'finalizado' con una fecha de fin de ingreso");
 			}
 		} else if (estadoIngreso != null) {
             if (EstadoIngreso.FINALIZADO.toString().compareTo(estadoIngreso.toUpperCase()) == 0) {
-				throw new InputException("No se puede establecer el estado \"finalizado\" sin especificar una fecha de fin de ingreso");
+				throw new InputException("No se puede establecer el estado 'finalizado' sin especificar una fecha de fin de ingreso");
 			} else {
 				try {
 					EstadoIngreso newEstado = EstadoIngreso.valueOf(estadoIngreso.toUpperCase());
 					ingreso.setEstado(newEstado);
 		        } catch (IllegalArgumentException e) {
-		        	throw new InputException("Estado \"" + estadoIngreso + "\" no válido");
+		        	throw new InputException("Estado '" + estadoIngreso + "' no válido");
 		        }
 			}
 		} else if (finIngreso != null) {
@@ -135,9 +135,9 @@ public class IngresoService implements IIngresoService {
 	//Aux
 	private void validateEstadoIngreso(Ingreso ingreso) {
 		if (ingreso.getEstado().equals(EstadoIngreso.ANULADO)) {
-			throw new InputException("No se puede modificar un ingreso con estado \"anulado\"");
+			throw new InputException("No se puede modificar un ingreso con estado 'anulado'");
 		} else if (ingreso.getEstado().equals(EstadoIngreso.FINALIZADO)) {
-			throw new InputException("No se puede modificar un ingreso con estado \"finalizado\"");
+			throw new InputException("No se puede modificar un ingreso con estado 'finalizado'");
 		}
 	}
 }

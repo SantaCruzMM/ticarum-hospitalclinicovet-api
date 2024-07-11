@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.scmm.hospitalclinicovet.controller.dto.ErrorResponse;
 import com.scmm.hospitalclinicovet.controller.dto.IngresoDTO;
 import com.scmm.hospitalclinicovet.controller.dto.IngresoModificationDTO;
 import com.scmm.hospitalclinicovet.controller.dto.NuevoIngresoDTO;
@@ -23,6 +24,9 @@ import com.scmm.hospitalclinicovet.service.impl.IngresoService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -37,7 +41,9 @@ public class IngresoController {
 
 	@Operation(summary = "Obtener todos los ingresos", description = "Devuelve una lista con todos los ingresos")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "Listado de ingresos recuperado")
+        @ApiResponse(responseCode = "200", description = "Listado de ingresos recuperado",
+        		content = { @Content(mediaType = "application/json",
+        			array = @ArraySchema(schema = @Schema(implementation = IngresoDTO.class))) })
     })
 	@GetMapping(produces = "application/json")
 	public ResponseEntity<List<IngresoDTO>> getAllIngresos() {
@@ -51,8 +57,12 @@ public class IngresoController {
 	
 	@Operation(summary = "Crear un nuevo ingreso", description = "Crea un nuevo ingreso a partir de sus datos")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "201", description = "Ingreso creado"),
-        @ApiResponse(responseCode = "400", description = "Datos para crear el ingreso incorrectos o incompletos")
+        @ApiResponse(responseCode = "201", description = "Ingreso creado",
+        		content = { @Content(mediaType = "application/json",
+        			schema = @Schema(implementation = IngresoDTO.class)) }),
+        @ApiResponse(responseCode = "400", description = "Datos para crear el ingreso incorrectos o incompletos",
+        		content = @Content(mediaType = "application/json",
+        			schema = @Schema(implementation = ErrorResponse.class)))
     })
 	@PostMapping(consumes = "application/json", produces = "application/json")
 	public ResponseEntity<IngresoDTO> addIngreso(@io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Datos del nuevo ingreso")
@@ -67,9 +77,14 @@ public class IngresoController {
 	
 	@Operation(summary = "Actualizar un ingreso", description = "Actualiza el estado y la fecha de fin de un ingreso de una mascota")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "204", description = "Ingreso actualizado"),
-        @ApiResponse(responseCode = "400", description = "Datos para actualizar el ingreso incorrectos o incompletos"),
-        @ApiResponse(responseCode = "404", description = "Ingreso no encontrado")
+        @ApiResponse(responseCode = "204", description = "Ingreso actualizado",
+        		content = @Content),
+        @ApiResponse(responseCode = "400", description = "Datos para actualizar el ingreso incorrectos o incompletos",
+        		content = @Content(mediaType = "application/json",
+        			schema = @Schema(implementation = ErrorResponse.class))),
+        @ApiResponse(responseCode = "404", description = "Ingreso no encontrado",
+        		content = @Content(mediaType = "application/json",
+        			schema = @Schema(implementation = ErrorResponse.class)))
     })
 	@PutMapping(value = "/{idMascota}/{idIngreso}", consumes = "application/json")
 	public ResponseEntity<Void> updateIngreso(@Parameter(description = "ID de la mascota") @PathVariable Long idMascota,
@@ -84,9 +99,14 @@ public class IngresoController {
 	
 	@Operation(summary = "Anular un ingreso", description = "Anula un ingreso activo")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "204", description = "Ingreso anulado"),
-        @ApiResponse(responseCode = "400", description = "Datos para anular el ingreso incorrectos o incompletos"),
-        @ApiResponse(responseCode = "404", description = "Ingreso no encontrado")
+        @ApiResponse(responseCode = "204", description = "Ingreso anulado",
+        		content = @Content),
+        @ApiResponse(responseCode = "400", description = "Datos para anular el ingreso incorrectos o incompletos",
+        		content = @Content(mediaType = "application/json",
+        			schema = @Schema(implementation = ErrorResponse.class))),
+        @ApiResponse(responseCode = "404", description = "Ingreso no encontrado",
+        		content = @Content(mediaType = "application/json",
+        			schema = @Schema(implementation = ErrorResponse.class)))
     })
 	@DeleteMapping(value = "/{idIngreso}")
 	public ResponseEntity<Void> anulaIngreso(@Parameter(description = "ID del ingreso") @PathVariable Long idIngreso) {
