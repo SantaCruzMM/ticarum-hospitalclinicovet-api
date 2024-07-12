@@ -1,5 +1,6 @@
 package com.scmm.hospitalclinicovet.controller.dto;
 
+// Clase que representa una respuesta de error del API
 public class ErrorResponse {
 	private String message;
 

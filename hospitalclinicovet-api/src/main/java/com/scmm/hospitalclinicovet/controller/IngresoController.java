@@ -31,6 +31,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
+// Clase con la implementación de los endpoints relacionados con ingresos
 @Tag(name = "Ingresos", description = "Operaciones relacionadas con ingresos")
 @RestController
 @RequestMapping("/ingreso")

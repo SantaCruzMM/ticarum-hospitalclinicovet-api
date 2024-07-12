@@ -10,6 +10,7 @@ import com.scmm.hospitalclinicovet.exception.IngresoNotFoundException;
 import com.scmm.hospitalclinicovet.exception.InputException;
 import com.scmm.hospitalclinicovet.exception.MascotaNotFoundException;
 
+// Clase para gestionar las excepciones generadas por la aplicación y devolver una respuesta adecuada al usuario del API
 @ControllerAdvice
 public class GlobalExceptionHandler {
 	

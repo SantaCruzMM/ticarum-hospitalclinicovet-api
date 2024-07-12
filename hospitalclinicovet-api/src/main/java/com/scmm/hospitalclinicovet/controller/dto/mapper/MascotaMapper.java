@@ -3,8 +3,9 @@ package com.scmm.hospitalclinicovet.controller.dto.mapper;
 import com.scmm.hospitalclinicovet.controller.dto.MascotaDTO;
 import com.scmm.hospitalclinicovet.modelo.Mascota;
 
+//Clase para conversiones entre DTO y entidad de mascotas
 public class MascotaMapper {
-
+	
 	public static MascotaDTO toDto(Mascota mascota) {
 		MascotaDTO mascotaDto = new MascotaDTO();
 		

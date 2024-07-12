@@ -2,6 +2,7 @@ package com.scmm.hospitalclinicovet.controller.dto;
 
 import java.time.LocalDate;
 
+//Clase que representa una modificación de un ingreso para las llamadas de nuestra API
 public class IngresoModificationDTO {
 	private String estado;
 	private LocalDate finIngreso;

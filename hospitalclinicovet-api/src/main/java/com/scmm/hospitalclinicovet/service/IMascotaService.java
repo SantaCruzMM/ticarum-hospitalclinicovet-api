@@ -5,6 +5,7 @@ import java.util.List;
 import com.scmm.hospitalclinicovet.modelo.Ingreso;
 import com.scmm.hospitalclinicovet.modelo.Mascota;
 
+// Interfaz que declara las acciones que pueden realizarse sobre una mascota
 public interface IMascotaService {
 	
 	Mascota getMascotaById(Long idMascota);

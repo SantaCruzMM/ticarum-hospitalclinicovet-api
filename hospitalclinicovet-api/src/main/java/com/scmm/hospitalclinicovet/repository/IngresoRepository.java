@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.scmm.hospitalclinicovet.modelo.Ingreso;
 
+// Interfaz para repositorio CRUD de ingresos
 @Repository
 public interface IngresoRepository extends CrudRepository<Ingreso, Long> {
 	List<Ingreso> findAll();

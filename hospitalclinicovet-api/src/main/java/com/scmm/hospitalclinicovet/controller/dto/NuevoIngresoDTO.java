@@ -2,6 +2,7 @@ package com.scmm.hospitalclinicovet.controller.dto;
 
 import java.time.LocalDate;
 
+//Clase que representa un nuevo ingreso para las llamadas de nuestra API
 public class NuevoIngresoDTO {
 	private Long idMascota;
 	private String dniResponsable;

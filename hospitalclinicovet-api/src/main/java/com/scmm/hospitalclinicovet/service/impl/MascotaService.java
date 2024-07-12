@@ -14,6 +14,7 @@ import com.scmm.hospitalclinicovet.repository.IngresoRepository;
 import com.scmm.hospitalclinicovet.repository.MascotaRepository;
 import com.scmm.hospitalclinicovet.service.IMascotaService;
 
+// Clase servicio que implementa las operaciones que se pueden realizar sobre una mascota
 @Service
 public class MascotaService  implements IMascotaService {
 	

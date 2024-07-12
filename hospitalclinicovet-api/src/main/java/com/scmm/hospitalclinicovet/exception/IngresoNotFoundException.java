@@ -1,5 +1,6 @@
 package com.scmm.hospitalclinicovet.exception;
 
+// Clase que representa una excepción de Ingreso no encontrado
 @SuppressWarnings("serial")
 public class IngresoNotFoundException extends RuntimeException {
 	

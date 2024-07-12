@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.scmm.hospitalclinicovet.modelo.Ingreso;
 
+// Interfaz que declara las acciones que pueden realizarse sobre un ingreso
 public interface IIngresoService {
 	
 	List<Ingreso> getAllIngresos();

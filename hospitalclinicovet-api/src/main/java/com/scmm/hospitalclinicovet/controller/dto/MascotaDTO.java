@@ -1,5 +1,6 @@
 package com.scmm.hospitalclinicovet.controller.dto;
 
+//Clase que representa una mascota para las llamadas de nuestra API
 public class MascotaDTO {
 	private Long id;
 	private String especie;

@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+// Clase que representa a un ingreso
 @Entity
 public class Ingreso {
 	@Id

@@ -7,6 +7,7 @@ import com.scmm.hospitalclinicovet.controller.dto.IngresoDTO;
 import com.scmm.hospitalclinicovet.modelo.EstadoIngreso;
 import com.scmm.hospitalclinicovet.modelo.Ingreso;
 
+// Clase para conversiones entre DTO y entidad de ingresos
 public class IngresoMapper {
 	
 	public static IngresoDTO toDto(Ingreso ingreso) {

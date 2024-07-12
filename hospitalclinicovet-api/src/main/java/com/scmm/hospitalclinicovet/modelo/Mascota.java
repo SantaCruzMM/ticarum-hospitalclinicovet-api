@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+//Clase que representa a una mascota
 @Entity
 public class Mascota {
 	@Id

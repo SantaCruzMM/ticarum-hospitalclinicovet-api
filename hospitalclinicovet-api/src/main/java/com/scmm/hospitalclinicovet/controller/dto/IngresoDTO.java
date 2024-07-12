@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import com.scmm.hospitalclinicovet.modelo.Mascota;
 
+// Clase que representa un ingreso para las llamadas de nuestra API
 public class IngresoDTO {
 	private Long id;
 	private LocalDate alta;
