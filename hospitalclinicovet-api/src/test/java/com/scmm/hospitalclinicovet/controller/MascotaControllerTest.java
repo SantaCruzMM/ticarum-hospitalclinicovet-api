@@ -37,26 +37,25 @@ public class MascotaControllerTest {
 	@MockBean
 	private MascotaService mascotaService;
 	
-	private Mascota mascotaMock;
-	private List<Ingreso> ingresosMascotaMock;
+	private Mascota mascotaExample;
+	private List<Ingreso> ingresosMascotaExample;
 	
 	@BeforeEach
 	void beforeEach() {
 		String dniResponsable = "23456389T";
-		mascotaMock = new Mascota(1L, "perro", "bulldog", 5, "390547129375401", dniResponsable, true);
+		mascotaExample = new Mascota(1L, "perro", "bulldog", 5, "390547129375401", dniResponsable, true);
 		
-		ingresosMascotaMock = new ArrayList<Ingreso>();
-		LocalDate fechaInicio1 = LocalDate.of(2022, 4, 27);
-		LocalDate fechaFin1 = LocalDate.of(2022, 5, 3);
-		ingresosMascotaMock.add(new Ingreso(1L, fechaInicio1, fechaFin1, EstadoIngreso.FINALIZADO, mascotaMock, dniResponsable));
-		LocalDate fechaInicio2 = LocalDate.of(2024, 7, 9);
-		ingresosMascotaMock.add(new Ingreso(2L, fechaInicio2, null, EstadoIngreso.ALTA, mascotaMock, dniResponsable));
+		ingresosMascotaExample = new ArrayList<Ingreso>();
+		ingresosMascotaExample.add(new Ingreso(1L, LocalDate.of(2022, 4, 27), LocalDate.of(2022, 5, 3),
+				EstadoIngreso.FINALIZADO, mascotaExample, dniResponsable));
+		ingresosMascotaExample.add(new Ingreso(2L, LocalDate.of(2024, 7, 9), null,
+				EstadoIngreso.ALTA, mascotaExample, dniResponsable));
 	}
 	
 	@Test
 	public void getMascotaByIdTest() throws Exception {
 		// For
-		when(mascotaService.getMascotaById(1L)).thenReturn(mascotaMock);
+		when(mascotaService.getMascotaById(1L)).thenReturn(mascotaExample);
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/mascota/{idMascota}", 1L)
 				.accept(MediaType.APPLICATION_JSON);
 		MvcResult result = null;
@@ -105,7 +104,7 @@ public class MascotaControllerTest {
 	@Test
 	public void getIngresosMascotaTest() throws Exception {
 		// For
-		when(mascotaService.getIngresosMascota(1L)).thenReturn(ingresosMascotaMock);
+		when(mascotaService.getIngresosMascota(1L)).thenReturn(ingresosMascotaExample);
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/mascota/{idMascota}/ingreso", 1L)
 				.accept(MediaType.APPLICATION_JSON);
 		MvcResult result = null;
@@ -164,7 +163,7 @@ public class MascotaControllerTest {
 	public void addMascotaTest() throws Exception {
 		// For
 		when(mascotaService.createMascota("perro", "bulldog", 5, "390547129375401", "23456389T"))
-			.thenReturn(mascotaMock);
+			.thenReturn(mascotaExample);
 		
 		String mascotaJson = "{"
 				+ "    \"especie\": \"perro\","

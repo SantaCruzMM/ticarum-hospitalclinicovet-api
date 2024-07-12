@@ -13,3 +13,5 @@ Base de datos H2 accesible desde: http://localhost:8080/h2-console
 - Contraseña: ticarumhospitalclinicovet
 
 Documentación OpenApi/Swagger para el API REST accesible desde: http://localhost:8080/swagger-ui/index.html
+
+Aclaración: Al hacer el DELETE de una mascota se marca como dada de baja y no se podrá hacer ninguna operación de modificación sobre ella, pero si que se pueden realizar operaciones de consulta con el API para mostrar que sigue persistida en base de datos. En caso de no querer que se muestre en operaciones de consulta habría que hacer una consulta al repositorio filtrando por "activa = true" o realizando el filtrado en el servicio. Esto se ha realizado con fines de demostrar que no es eliminada de la base de datos.

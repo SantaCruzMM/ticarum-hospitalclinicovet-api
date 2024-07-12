@@ -37,26 +37,26 @@ public class IngresoControllerTest {
 	@MockBean
 	private IngresoService ingresoService;
 	
-	private Mascota mascotaMock;
-	private List<Ingreso> ingresosMock;
+	private Mascota mascotaExample;
+	private List<Ingreso> ingresosExample;
 	
 	@BeforeEach
 	void beforeEach() {
 		String dniResponsable = "23456389T";
-		mascotaMock = new Mascota(1L, "perro", "bulldog", 5, "390547129375401", dniResponsable, true);
+		mascotaExample = new Mascota(1L, "perro", "bulldog", 5, "390547129375401", dniResponsable, true);
 		
-		ingresosMock = new ArrayList<Ingreso>();
+		ingresosExample = new ArrayList<Ingreso>();
 		LocalDate fechaInicio1 = LocalDate.of(2022, 4, 27);
 		LocalDate fechaFin1 = LocalDate.of(2022, 5, 3);
-		ingresosMock.add(new Ingreso(1L, fechaInicio1, fechaFin1, EstadoIngreso.FINALIZADO, mascotaMock, dniResponsable));
+		ingresosExample.add(new Ingreso(1L, fechaInicio1, fechaFin1, EstadoIngreso.FINALIZADO, mascotaExample, dniResponsable));
 		LocalDate fechaInicio2 = LocalDate.of(2024, 7, 9);
-		ingresosMock.add(new Ingreso(2L, fechaInicio2, null, EstadoIngreso.ALTA, mascotaMock, dniResponsable));
+		ingresosExample.add(new Ingreso(2L, fechaInicio2, null, EstadoIngreso.ALTA, mascotaExample, dniResponsable));
 	}
 	
 	@Test
 	public void getAllIngresosTest() throws Exception {
 		// For
-		when(ingresoService.getAllIngresos()).thenReturn(ingresosMock);
+		when(ingresoService.getAllIngresos()).thenReturn(ingresosExample);
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/ingreso")
 				.accept(MediaType.APPLICATION_JSON);
 		MvcResult result = null;
@@ -101,7 +101,7 @@ public class IngresoControllerTest {
 				+ "    \"fechaIngreso\": \"2024-07-09\""
 				+ "}";
 		
-		when(ingresoService.createIngreso(1L, "23456389T", fechaIngreso)).thenReturn(ingresosMock.get(1));
+		when(ingresoService.createIngreso(1L, "23456389T", fechaIngreso)).thenReturn(ingresosExample.get(1));
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/ingreso")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(nuevoIngresoJson)

@@ -1,6 +1,7 @@
 package com.scmm.hospitalclinicovet.modelo;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -100,5 +101,24 @@ public class Ingreso {
 
 	public void setDniRegistroIngreso(String dniRegistroIngreso) {
 		this.dniRegistroIngreso = dniRegistroIngreso;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(alta, dniRegistroIngreso, estado, fin, id, mascota);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Ingreso other = (Ingreso) obj;
+		return Objects.equals(alta, other.alta) && Objects.equals(dniRegistroIngreso, other.dniRegistroIngreso)
+				&& estado == other.estado && Objects.equals(fin, other.fin) && Objects.equals(id, other.id)
+				&& Objects.equals(mascota, other.mascota);
 	}
 }

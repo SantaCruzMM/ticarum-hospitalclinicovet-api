@@ -1,5 +1,7 @@
 package com.scmm.hospitalclinicovet.modelo;
 
+import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -99,5 +101,25 @@ public class Mascota {
 
 	public void setActiva(boolean activa) {
 		this.activa = activa;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(activa, codIdentif, dniResponsable, edad, especie, id, raza);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Mascota other = (Mascota) obj;
+		return activa == other.activa && Objects.equals(codIdentif, other.codIdentif)
+				&& Objects.equals(dniResponsable, other.dniResponsable) && Objects.equals(edad, other.edad)
+				&& Objects.equals(especie, other.especie) && Objects.equals(id, other.id)
+				&& Objects.equals(raza, other.raza);
 	}
 }
